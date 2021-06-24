@@ -15,10 +15,9 @@ struct ContentView: View {
     @StateObject var sensed = GlobalString()
 
     var body: some View {
-        let basicTap = TapGesture()
-            .onEnded {sensed.SensedGesture = "basic tap"}
+        let doubleTap = TapGesture(count: 2)
+            .onEnded {sensed.SensedGesture = "double tap"}
         
-                
         VStack{
         Text("Gesture Recognizer saw")
             .padding()
@@ -27,7 +26,19 @@ struct ContentView: View {
             .resizable()
             .scaledToFit()
             .frame(width: 200, height: 200).foregroundColor(.red)
-            .gesture(basicTap)
+            .gesture(doubleTap)
+            .onLongPressGesture {
+                sensed.SensedGesture = "long press"
+            }
+            .onTapGesture {
+                sensed.SensedGesture = "basic tap"
+            }
+            .gesture(MagnificationGesture()
+                .onChanged{_ in sensed.SensedGesture = "Magnification changing"}
+                .onEnded{_ in sensed.SensedGesture = "Magnification changed"}
+            )
+            .gesture(RotationGesture()
+                .onEnded{_ in sensed.SensedGesture = "rotated"})
         }
     }
 }
