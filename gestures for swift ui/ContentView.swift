@@ -19,6 +19,12 @@ struct ContentView: View {
             .onEnded {sensed.SensedGesture = "double tap"}
         
         VStack{
+        Text("Options are:")
+        Text("Basic Tap")
+        Text("Long Press")
+        Text("Magnification changing")
+        Text("Rotated\n")
+
         Text("Gesture Recognizer saw")
             .padding()
         Text(sensed.SensedGesture)
